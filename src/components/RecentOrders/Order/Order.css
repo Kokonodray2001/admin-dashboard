@@ -1,0 +1,18 @@
+.order-container{
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.order-container span{
+    padding: 5px;
+    width: 140px;
+    text-align: start;
+}
+.order-status{
+    
+    padding: 2px;
+    border-radius: 5px;
+    color: white;
+}
