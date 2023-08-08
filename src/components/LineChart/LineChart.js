@@ -29,7 +29,7 @@ export default function LineChart() {
         fill: "start",
         borderColor: "rgba(75,192,192,1)",
         backgroundColor: "rgba(75,192,192,0.5)",
-        cubicInterpolationMode: "monotone",
+        //  cubicInterpolationMode: "monotone",
       },
       {
         label: "Sales",
@@ -37,7 +37,7 @@ export default function LineChart() {
         fill: "start",
         borderColor: "rgba(175,19,192,1)",
         backgroundColor: "rgba(175,19,192,0.5)",
-        cubicInterpolationMode: "monotone",
+        //cubicInterpolationMode: "monotone",
       },
     ],
   };
