@@ -1,8 +1,7 @@
 import React from "react";
-import "./RecentOrders.css";
-import Order from "./Order/Order";
+import "./RecentOrdersPage.css";
+import Order from "../RecentOrders/Order/Order";
 import { useNavigate } from "react-router-dom";
-
 const OrderArr = [
   <Order
     orderID="af212f"
@@ -38,21 +37,20 @@ const OrderArr = [
   />,
 ];
 
-const smallOrderArr = OrderArr.slice(0, 3);
 export default function RecentOrders() {
   const navigate = useNavigate();
   return (
     <div className="recent-order-container">
       <div className="recent-order-header">
-        <span>Recent Orders</span>
+        <h1>Recent Orders</h1>
         <button
           className="btn btn-primary"
           fdprocessedid="09edqc"
           onClick={() => {
-            navigate("/viewAll");
+            navigate("/");
           }}
         >
-          View All
+          ⬅
         </button>
       </div>
       <div className="recent-order-table-cols">
@@ -63,7 +61,7 @@ export default function RecentOrders() {
         <span>Status</span>
         <span>Total</span>
       </div>
-      <div className="recent-order-table-rows">{smallOrderArr}</div>
+      <div className="recent-order-table-rows">{OrderArr}</div>
     </div>
   );
 }

@@ -28,3 +28,17 @@
     width: 140px;
     text-align: start;
 }
+
+
+@media screen and (max-width : 700px){
+    .recent-order-container{
+        overflow-x: auto;
+        width: 90%;
+        margin: 20px 20px 30px 20px ;
+        
+    }
+    .recent-order-table-cols{
+        width: 600px;
+    }
+   
+ }
