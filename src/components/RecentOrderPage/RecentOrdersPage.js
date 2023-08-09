@@ -1,48 +1,45 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./RecentOrdersPage.css";
 import Order from "../RecentOrders/Order/Order";
 import { useNavigate } from "react-router-dom";
-const OrderArr = [
-  <Order
-    orderID="af212f"
-    paymentMethod="COD"
-    orderDate="Sept 8th 10pm"
-    deliveryDate="September 10th 2020"
-    status="Pending"
-    total="52222"
-  />,
-  <Order
-    orderID="af212f"
-    paymentMethod="COD"
-    orderDate="Sept 8th 10pm"
-    deliveryDate="September 10th 2020"
-    status="Delivered"
-    total="52222"
-  />,
-  <Order
-    orderID="af212f"
-    paymentMethod="COD"
-    orderDate="Sept 8th 10pm"
-    deliveryDate="September 10th 2020"
-    status="Cancel"
-    total="52222"
-  />,
-  <Order
-    orderID="af212f"
-    paymentMethod="COD"
-    orderDate="Sept 8th 10pm"
-    deliveryDate="September 10th 2020"
-    status="delivered"
-    total="52222"
-  />,
-];
+import axios from "axios";
 
+var newOrderArray;
 export default function RecentOrders() {
   const navigate = useNavigate();
+
+  const [orderArray, setOrderArray] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          "http://localhost:3002/order/getOrderDetails/64d26ced56d9dd620fa75b1b"
+        );
+        setOrderArray(response.data.Orders);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchData();
+  }, []); // works on mount
+
+  useEffect(() => {
+    console.log(orderArray);
+    newOrderArray = orderArray.map((order) => (
+      <Order
+        orderID={order._id}
+        paymentMethod={order.paymentMethod}
+        orderDate={order.orderDate}
+        deliveryDate={order.deliveryDate}
+        status={order.status}
+        total={order.total}
+      />
+    ));
+  }, [orderArray]);
   return (
     <div className="recent-order-container">
       <div className="recent-order-header">
-        <h1>Recent Orders</h1>
+        <span>Recent Orders</span>
         <button
           className="btn btn-primary"
           fdprocessedid="09edqc"
@@ -50,7 +47,7 @@ export default function RecentOrders() {
             navigate("/");
           }}
         >
-          ⬅
+          BACK
         </button>
       </div>
       <div className="recent-order-table-cols">
@@ -61,7 +58,7 @@ export default function RecentOrders() {
         <span>Status</span>
         <span>Total</span>
       </div>
-      <div className="recent-order-table-rows">{OrderArr}</div>
+      <div className="recent-order-table-rows">{newOrderArray}</div>
     </div>
   );
 }

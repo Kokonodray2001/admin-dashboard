@@ -7,9 +7,13 @@
 }
 .order-container span{
     padding: 5px;
-    width: 140px;
+    width: 145px;
     text-align: start;
+    overflow: auto;
+    scroll-behavior: smooth;
+    
 }
+
 .order-status{
     
     padding: 2px;

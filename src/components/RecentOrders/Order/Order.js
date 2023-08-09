@@ -25,7 +25,7 @@ export default function Order({
           {status}
         </span>
       </span>
-      <span>{total}</span>
+      <span>₨ {total}</span>
     </div>
   );
 }
