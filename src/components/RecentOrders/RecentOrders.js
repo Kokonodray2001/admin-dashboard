@@ -47,8 +47,9 @@ export default function RecentOrders() {
   useEffect(() => {
     async function fetchData() {
       try {
+        const shopId = "64d26ced56d9dd620fa75b1b";
         const response = await axios.get(
-          "http://localhost:3002/order/getOrderDetails/64d26ced56d9dd620fa75b1b"
+          "http://localhost:3002/order/getOrderDetails/" + shopId
         );
         setOrderArray(response.data.Orders);
       } catch (error) {
@@ -59,7 +60,6 @@ export default function RecentOrders() {
   }, []); // works on mount
 
   useEffect(() => {
-    console.log(orderArray);
     const newOrderArray = orderArray.map((order) => (
       <Order
         orderID={order._id}

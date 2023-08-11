@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./LineChart.css";
+import axios from "axios";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -19,13 +20,62 @@ ChartJS.register(
   Legend,
   Filler
 );
+// const label = [
+//   "January",
+//   "February",
+//   "March",
+//   "April",
+//   "May",
+//   "June",
+//   "July",
+//   "August",
+//   "September",
+//   "October",
+//   "November",
+//   "December",
+// ];
 export default function LineChart() {
+  const [labels, setLabels] = useState([]);
+  const [visits, setVisits] = useState([]);
+  const [sales, setSales] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const shopId = "64d26ced56d9dd620fa75b1b";
+        const response = await axios.get(
+          "http://localhost:3002/shopStat/getStats/" + shopId
+        );
+
+        //visits
+        const visitsArr = response.data.data.map((el) => el.visits);
+        setVisits(visitsArr);
+
+        //sales
+        const salesArr = response.data.data.map((el) => el.sales);
+        setSales(salesArr);
+
+        //month label
+        const monthArr = response.data.data.map((el) => el.month);
+        setLabels(monthArr);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    console.log(visits);
+    console.log(sales);
+    console.log(labels);
+  }, [visits, sales, labels]);
+
   const data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: labels,
     datasets: [
       {
         label: "Visit",
-        data: [65, 59, 45, 81, 56, 85, 90],
+        data: visits,
         fill: "start",
         borderColor: "rgba(75,192,192,1)",
         backgroundColor: "rgba(75,192,192,0.5)",
@@ -33,7 +83,7 @@ export default function LineChart() {
       },
       {
         label: "Sales",
-        data: [5, 5, 10, 1, 36, 2, 30],
+        data: sales,
         fill: "start",
         borderColor: "rgba(175,19,192,1)",
         backgroundColor: "rgba(175,19,192,0.5)",
